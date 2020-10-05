@@ -1,14 +1,11 @@
 * {
     text-transform: uppercase;
-    letter-spacing: .1em;
+    
 }
 
 .hero {
-    color: #fff;
-    background-color: #23272b;
     font-family: "Abril Fatface";
-
-    
+    letter-spacing: .1em;
 }
 
 .cart-row {
@@ -16,15 +13,8 @@
         max-width: 75px;
     }
 }
-.shop {
-
-    .card-add {
-        display: flex;
-    }
-}
 
 .cart {
-    width: 100%;
     input {
         max-width: 4em;
     }

@@ -17,17 +17,36 @@ function ready () {
         input.addEventListener('change', quantityChange)
     }
 
-    let addToCartBtns = document.getElementsByClassName('btn-primary');
+    let addToCartBtns = document.getElementsByClassName('btn-dark');
     for (let i = 0; i < addToCartBtns.length; i++) {
         let btn = addToCartBtns[i];
         btn.addEventListener('click', addToCartClick)
     }
+
+    document.getElementsByClassName('checkout')[0].addEventListener('click', purchaseClick);
+}
+
+function purchaseClick() {
+    let cartItems = document.getElementsByClassName('cart-container')[0];
+
+    if (cartItems.hasChildNodes() == false) {
+        alert('There is nothing in your cart!');
+    } if (cartItems.hasChildNodes() == true) {
+        alert('Thank you for your purchase');
+    }
+
+    while (cartItems.hasChildNodes()) {
+        cartItems.removeChild(cartItems.firstChild);
+    }
+    updateTotal();
+    checkNavBtn();
 }
 
 function removeCartItem(e) {
     let btnClick = e.target;
     btnClick.parentElement.parentElement.remove();
     updateTotal();
+    checkNavBtn();
 }
 
 function quantityChange(e) {
@@ -72,10 +91,12 @@ function addItemToCart(title, price, imgSrc) {
             <input type="number" value="1" class="item-quantity mr-4 ml-auto">
             <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
         </div>`
+
     cartRow.innerHTML = cartRowContents;
     cartItems.prepend(cartRow);
     cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click', removeCartItem);
     cartRow.getElementsByClassName('item-quantity')[0].addEventListener('change', quantityChange);
+    checkNavBtn();
 }
 
 let removeItemBtns = document.getElementsByClassName('btn-danger');
@@ -105,4 +126,17 @@ function updateTotal() {
     document.getElementsByClassName('total-price')[0].innerHTML = `
         <strong><h2>Total</h2></strong>
         <span class="ml-auto"><h3>$${total}</h3></span>`
+}
+
+function checkNavBtn() {
+    let cartItems = document.getElementsByClassName('cart-container')[0];
+    if (cartItems.childElementCount >= 0) {
+        let cartBtn = document.getElementsByClassName('cart-btn')[0]
+        cartBtn.innerHTML = `
+        <i class="fa fa-cart-plus cart-btn text-danger"></i>`
+    } if (cartItems.childElementCount <= 0) {
+        let cartBtn = document.getElementsByClassName('cart-btn')[0]
+        cartBtn.innerHTML = `
+        <i class="fa fa-shopping-cart cart-btn"></i>`
+    }
 }
