@@ -28,13 +28,7 @@ function ready () {
 
 function purchaseClick() {
     let cartItems = document.getElementsByClassName('cart-container')[0];
-
-    if (cartItems.hasChildNodes() == false) {
-        alert('There is nothing in your cart!');
-    } if (cartItems.hasChildNodes() == true) {
-        alert('Thank you for your purchase');
-    }
-
+    checkCartContents();
     while (cartItems.hasChildNodes()) {
         cartItems.removeChild(cartItems.firstChild);
     }
@@ -81,15 +75,15 @@ function addItemToCart(title, price, imgSrc) {
     }
     let cartRowContents = `
         <div class="col-4 col-sm-6 d-flex align-items-center">
-            <img src="${imgSrc}" alt="" class="mr-4">
-            <span class="cart-item-title">${title}</span>
+            <img src="${imgSrc}" alt="" style="width: 75px;">
+            <h5 class="cart-item-title text-center ml-2">${title}</h5>
         </div>
         <div class="col-3 col-sm-2 d-flex align-items-center">
-            <span class="item-price">${price}</span>
+            <h4 class="item-price">${price}</h4>
         </div>
         <div class="col-5 col-sm-4 d-flex align-items-center">
-            <input type="number" value="1" class="item-quantity mr-4 ml-auto">
-            <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+            <input type="number" value="1" class="item-quantity mr-3 ml-auto" style="max-width: 4em;">
+            <button type="button" class="btn btn-danger"><i class="fa fa-trash" style="pointer-events: none;"></i></button>
         </div>`
 
     cartRow.innerHTML = cartRowContents;
@@ -130,13 +124,19 @@ function updateTotal() {
 
 function checkNavBtn() {
     let cartItems = document.getElementsByClassName('cart-container')[0];
-    if (cartItems.childElementCount >= 0) {
-        let cartBtn = document.getElementsByClassName('cart-btn')[0]
-        cartBtn.innerHTML = `
-        <i class="fa fa-cart-plus cart-btn text-danger"></i>`
+    let cartBtn = document.getElementsByClassName('fa-shopping-cart')[0];
+    if (cartItems.childElementCount >= 0 ) {
+        cartBtn.classList.add('fa-cart-plus', 'text-danger');
     } if (cartItems.childElementCount <= 0) {
-        let cartBtn = document.getElementsByClassName('cart-btn')[0]
-        cartBtn.innerHTML = `
-        <i class="fa fa-shopping-cart cart-btn"></i>`
+        cartBtn.classList.remove('fa-cart-plus', 'text-danger');
+    }
+}
+
+function checkCartContents() {
+    let cartItems = document.getElementsByClassName('cart-container')[0];
+    if (cartItems.hasChildNodes() == false) {
+        alert('There is nothing in your cart!');
+    } if (cartItems.hasChildNodes() == true) {
+        alert('Thank you for your purchase');
     }
 }

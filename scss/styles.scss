@@ -2,24 +2,3 @@
     text-transform: uppercase;
     
 }
-
-.hero {
-    font-family: "Abril Fatface";
-    letter-spacing: .1em;
-}
-
-.cart-row {
-    img {
-        max-width: 75px;
-    }
-}
-
-.cart {
-    input {
-        max-width: 4em;
-    }
-
-    .fa-trash {
-        pointer-events: none;
-    }
-}
